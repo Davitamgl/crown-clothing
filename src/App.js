@@ -10,36 +10,40 @@ import React from "react";
 class App extends React.Component {
   constructor() {
     super();
+
     this.state = {
       currentUser: null,
     };
   }
-  unsunscribeFromAuth = null;
+
+  unsubscribeFromAuth = null;
 
   componentDidMount() {
-    this.unsunscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
-        userRef.onSnapshot((snapshot) => {
+
+        userRef.onSnapshot((snapShot) => {
           this.setState({
             currentUser: {
-              id: snapshot.id,
-              ...snapshot.data()
-            }
-          })
+              id: snapShot.id,
+              ...snapShot.data(),
+            },
+          });
         });
-        console.log(this.state)
       }
-      this.setState({currentUser: userAuth})
+
+      this.setState({ currentUser: userAuth });
     });
   }
+
   componentWillUnmount() {
-    this.unsunscribeFromAuth();
+    this.unsubscribeFromAuth();
   }
 
   render() {
     return (
-      <div className="App">
+      <div>
         <Header currentUser={this.state.currentUser} />
         <Switch>
           <Route exact path="/" component={HomePage} />
