@@ -16,11 +16,11 @@ import {
 } from "./sign-in.styles";
 
 const SignIn = ({ emailSignInStart, googleSignInStart }) => {
-  const [userCredantials, setCredantials] = useState({
+  const [userCredentials, setCredentials] = useState({
     email: "",
     password: "",
   });
-  const { email, password } = userCredantials;
+  const { email, password } = userCredentials;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -31,7 +31,7 @@ const SignIn = ({ emailSignInStart, googleSignInStart }) => {
   const handleChange = (event) => {
     const { value, name } = event.target;
 
-    setCredantials({ ...userCredantials, [name]: value });
+    setCredentials({ ...userCredentials, [name]: value });
   };
 
   return (
